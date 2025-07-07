@@ -12,6 +12,9 @@ class TrendingProductsHeaderView: UICollectionReusableView {
     
     static let headerIdentifier = "TrendingProductsHeaderView"
     
+    
+    var onViewAllTapped: (() -> Void)?
+    
     private let headerTitle:UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -28,14 +31,16 @@ class TrendingProductsHeaderView: UICollectionReusableView {
         btn.setTitle("View All", for: .normal)
         btn.setTitleColor(UIColor(.purple), for: .normal)
         btn.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 13)
+        
         return btn
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground
         setUpHeaderView()
         //[allRestaurants,filterIcon,filterBtn,divider].forEach{addSubview($0)}
+        viewAll.addTarget(self, action: #selector(showAllTrendingProducts), for: .touchUpInside)
         
     }
     
@@ -56,5 +61,9 @@ class TrendingProductsHeaderView: UICollectionReusableView {
             viewAll.centerYAnchor.constraint(equalTo: headerTitle.centerYAnchor),
             viewAll.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
+    }
+    
+    @objc func showAllTrendingProducts() {
+        onViewAllTapped?() 
     }
 }

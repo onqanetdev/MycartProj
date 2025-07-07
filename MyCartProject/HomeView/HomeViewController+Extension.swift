@@ -88,6 +88,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             case 3:
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TrendingProductsHeaderView.headerIdentifier, for: indexPath) as! TrendingProductsHeaderView
                 header.backgroundColor = .clear
+                header.onViewAllTapped = { [weak self] in
+                    let vc = TrendingProductsViewController()
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
                 //header.delegate = self
                 return header
                 

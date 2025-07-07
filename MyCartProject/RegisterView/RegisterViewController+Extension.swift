@@ -39,10 +39,19 @@ extension RegisterViewController: UITextFieldDelegate {
                 confirmPassWordTxtField.becomeFirstResponder()
             } else if textField == confirmPassWordTxtField {
                 textField.resignFirstResponder()
-               // navigateToNextScreen() // Call your navigation logic here
+                navigateToNextScreen() // Call your navigation logic here
             }
             return true
         }
+    
+    
+    
+    func navigateToNextScreen() {
+        navigationController?.pushViewController(HomeViewController(), animated: true)
+    }
+    
+    
+    
     
     //NotificationCenter Functions
     

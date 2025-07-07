@@ -35,6 +35,9 @@
 		8AB10A372E17B3E5001ED82C /* LoginViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB10A362E17B3E5001ED82C /* LoginViewController+Extension.swift */; };
 		8AB10A3A2E17E5FC001ED82C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB10A392E17E5FC001ED82C /* RegisterViewController.swift */; };
 		8AB10A3C2E17E7C6001ED82C /* RegisterViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB10A3B2E17E7C6001ED82C /* RegisterViewController+Extension.swift */; };
+		8ABC6A872E1BCB6100BF8DC2 /* TrendingProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC6A862E1BCB6100BF8DC2 /* TrendingProductsViewController.swift */; };
+		8ABC6A892E1BD5AD00BF8DC2 /* TrendingProductsViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC6A882E1BD5AD00BF8DC2 /* TrendingProductsViewController+Extension.swift */; };
+		8ABC6A8B2E1BDBC200BF8DC2 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC6A8A2E1BDBC200BF8DC2 /* UIButton+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +71,9 @@
 		8AB10A362E17B3E5001ED82C /* LoginViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginViewController+Extension.swift"; sourceTree = "<group>"; };
 		8AB10A392E17E5FC001ED82C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8AB10A3B2E17E7C6001ED82C /* RegisterViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterViewController+Extension.swift"; sourceTree = "<group>"; };
+		8ABC6A862E1BCB6100BF8DC2 /* TrendingProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingProductsViewController.swift; sourceTree = "<group>"; };
+		8ABC6A882E1BD5AD00BF8DC2 /* TrendingProductsViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrendingProductsViewController+Extension.swift"; sourceTree = "<group>"; };
+		8ABC6A8A2E1BDBC200BF8DC2 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,7 @@
 		8AB109F42E17854E001ED82C /* MyCartProject */ = {
 			isa = PBXGroup;
 			children = (
+				8ABC6A852E1BCB0800BF8DC2 /* Trending Products */,
 				8AB10A382E17E5D8001ED82C /* RegisterView */,
 				8AB10A192E178ACC001ED82C /* Utilities */,
 				8AB10A0E2E17896C001ED82C /* Models */,
@@ -146,6 +153,7 @@
 				8AB10A1A2E178AF1001ED82C /* UIView+Extension.swift */,
 				8AB10A1C2E178B23001ED82C /* UIImage+Extension.swift */,
 				8AB10A342E17AC83001ED82C /* UITextField+Extension.swift */,
+				8ABC6A8A2E1BDBC200BF8DC2 /* UIButton+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -195,6 +203,15 @@
 				8AB10A3B2E17E7C6001ED82C /* RegisterViewController+Extension.swift */,
 			);
 			path = RegisterView;
+			sourceTree = "<group>";
+		};
+		8ABC6A852E1BCB0800BF8DC2 /* Trending Products */ = {
+			isa = PBXGroup;
+			children = (
+				8ABC6A862E1BCB6100BF8DC2 /* TrendingProductsViewController.swift */,
+				8ABC6A882E1BD5AD00BF8DC2 /* TrendingProductsViewController+Extension.swift */,
+			);
+			path = "Trending Products";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ABC6A892E1BD5AD00BF8DC2 /* TrendingProductsViewController+Extension.swift in Sources */,
 				8AB10A332E17973C001ED82C /* LoginViewController.swift in Sources */,
 				8AB10A272E178F42001ED82C /* TypeOfProdCollectionViewCell.swift in Sources */,
 				8AB10A1B2E178AF1001ED82C /* UIView+Extension.swift in Sources */,
@@ -277,8 +295,10 @@
 				8AB109FA2E17854E001ED82C /* ViewController.swift in Sources */,
 				8AB10A1D2E178B23001ED82C /* UIImage+Extension.swift in Sources */,
 				8AB10A182E178AAF001ED82C /* TrendingProductModel.swift in Sources */,
+				8ABC6A872E1BCB6100BF8DC2 /* TrendingProductsViewController.swift in Sources */,
 				8AB10A142E178A25001ED82C /* AdBannerModel.swift in Sources */,
 				8AB10A2B2E178F80001ED82C /* GroceryCollectionViewCell.swift in Sources */,
+				8ABC6A8B2E1BDBC200BF8DC2 /* UIButton+Extension.swift in Sources */,
 				8AB109F62E17854E001ED82C /* AppDelegate.swift in Sources */,
 				8AB10A162E178A4F001ED82C /* GroceryModel.swift in Sources */,
 				8AB109F82E17854E001ED82C /* SceneDelegate.swift in Sources */,
