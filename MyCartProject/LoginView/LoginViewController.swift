@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class LoginViewController: UIViewController {
     
     let topBackgroundImg:UIImageView = {
@@ -19,13 +21,13 @@ class LoginViewController: UIViewController {
         return img
     }()
     
-    
     let iconImg:UIImageView = {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
         img.layer.cornerRadius = 5
         img.clipsToBounds = true
         img.image = UIImage(named: "launch_Screen")
+        img.contentMode = .scaleAspectFit
         return img
     }()
 
@@ -33,12 +35,11 @@ class LoginViewController: UIViewController {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
         img.image = UIImage(systemName: "ellipsis")
-        img.contentMode = .scaleToFill
+        img.contentMode = .scaleAspectFit
         img.backgroundColor = .clear
         img.tintColor = #colorLiteral(red: 0.7340531349, green: 0.5922076106, blue: 0.9028964043, alpha: 1)
         return img
     }()
-    
     
     let welcomeLbl:UILabel = {
         let lbl = UILabel()
@@ -46,67 +47,42 @@ class LoginViewController: UIViewController {
         lbl.text = "Welcome!"
         lbl.textColor = #colorLiteral(red: 0.7340531349, green: 0.5922076106, blue: 0.9028964043, alpha: 1)
         lbl.font = UIFont(name: "Helvetica-Bold", size: 48)
+        lbl.adjustsFontSizeToFitWidth = true
+        lbl.minimumScaleFactor = 0.5
         return lbl
     }()
     
+    // Store bottom border layers for dynamic resizing
+    private var emailBottomBorder: CALayer?
+    private var passwordBottomBorder: CALayer?
     
     let emailTextField: UITextField = {
-            let textFld = UITextField()
-            textFld.translatesAutoresizingMaskIntoConstraints = false
-            //textFld.placeholder = "Email"
-            textFld.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-            textFld.textColor = .black
-            textFld.backgroundColor = .clear
-            textFld.borderStyle = .none
-            textFld.autocapitalizationType = .none
-            textFld.keyboardType = .emailAddress
-            textFld.autocorrectionType = .no
+        let textFld = UITextField()
+        textFld.translatesAutoresizingMaskIntoConstraints = false
+        textFld.placeholder = "Email"
+        textFld.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        textFld.textColor = .black
+        textFld.backgroundColor = .clear
+        textFld.borderStyle = .none
+        textFld.autocapitalizationType = .none
+        textFld.keyboardType = .emailAddress
+        textFld.autocorrectionType = .no
+        return textFld
+    }()
         
-            textFld.text = "Email"
-        
-            // Add bottom border
-            let bottomBorder = CALayer()
-            bottomBorder.backgroundColor = UIColor.systemPurple.cgColor
-            bottomBorder.frame = CGRect(x: 0, y: 43, width: 360, height: 1.5)
-            textFld.layer.addSublayer(bottomBorder)
-            
-            return textFld
-        }()
-        
-        let passWordTxtField: UITextField = {
-            let textFld = UITextField()
-            textFld.translatesAutoresizingMaskIntoConstraints = false
-            //textFld.placeholder = "Password"
-            textFld.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-            textFld.textColor = .black
-            textFld.backgroundColor = .clear
-            textFld.borderStyle = .none
-            textFld.isSecureTextEntry = false
-            textFld.autocapitalizationType = .none
-            textFld.autocorrectionType = .no
-            textFld.text = "Password"
-            
-            // Add bottom border
-            let bottomBorder = CALayer()
-            bottomBorder.backgroundColor = UIColor.systemPurple.cgColor
-            bottomBorder.frame = CGRect(x: 0, y: 43, width: 360, height: 1.5)
-            textFld.layer.addSublayer(bottomBorder)
-            
-            // Add eye icon for password visibility toggle
-            let eyeButton = UIButton(type: .custom)
-            eyeButton.setImage(UIImage(systemName: "eye"), for: .normal)
-            eyeButton.tintColor = .gray
-            eyeButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-            eyeButton.addTarget(textFld, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-            textFld.rightView = eyeButton
-            textFld.rightViewMode = .always
-            
-            return textFld
-        }()
-        
-    
-    
-    
+    let passWordTxtField: UITextField = {
+        let textFld = UITextField()
+        textFld.translatesAutoresizingMaskIntoConstraints = false
+        textFld.placeholder = "Password"
+        textFld.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        textFld.textColor = .black
+        textFld.backgroundColor = .clear
+        textFld.borderStyle = .none
+        textFld.isSecureTextEntry = true
+        textFld.autocapitalizationType = .none
+        textFld.autocorrectionType = .no
+        return textFld
+    }()
     
     let loginBtn:UIButton = {
         let btn = UIButton()
@@ -114,11 +90,10 @@ class LoginViewController: UIViewController {
         btn.setTitle("Login", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
-        btn.layer.cornerRadius = 25
+        btn.layer.cornerRadius = 20
         btn.backgroundColor = #colorLiteral(red: 0.7340531349, green: 0.5922076106, blue: 0.9028964043, alpha: 1)
         return btn
     }()
-    
     
     let forgetPasswordBtn:UIButton = {
         let btn = UIButton()
@@ -126,6 +101,7 @@ class LoginViewController: UIViewController {
         btn.setTitle("Forgot Password ?", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.backgroundColor = .clear
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return btn
     }()
     
@@ -135,7 +111,9 @@ class LoginViewController: UIViewController {
         lbl.text = "Don't have an account ?"
         lbl.textColor = .black
         lbl.textAlignment = .center
-        lbl.font = UIFont(name: "AvenirNext-Bold", size: 18)
+        lbl.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        lbl.adjustsFontSizeToFitWidth = true
+        lbl.minimumScaleFactor = 0.8
         return lbl
     }()
     
@@ -145,82 +123,99 @@ class LoginViewController: UIViewController {
         btn.setTitle("Create", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
-        btn.layer.cornerRadius = 25
+        btn.layer.cornerRadius = 20
         btn.backgroundColor = #colorLiteral(red: 0.7340531349, green: 0.5922076106, blue: 0.9028964043, alpha: 1)
         return btn
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         view.backgroundColor = #colorLiteral(red: 0.9505864978, green: 0.9303696752, blue: 0.9908335805, alpha: 1)
         
         emailTextField.delegate = self
         passWordTxtField.delegate = self
+        
         setUpAllImageView()
         setUpLabels()
-        setUpTexytFields()
+        setUpTextFields()
         setupButtons()
+        setupPasswordToggle()
+        
+        // Adjust for small screens
+        adjustForScreenSize()
     }
     
+    private func adjustForScreenSize() {
+        let screenHeight = UIScreen.main.bounds.height
+        
+        // iPhone SE and similar small screens
+        if screenHeight <= 667 {
+            // Make welcome label smaller
+            welcomeLbl.font = UIFont(name: "Helvetica-Bold", size: 36)
+            
+            // Reduce text field spacing
+            if let emailTopConstraint = emailTextField.constraints.first(where: { $0.firstAnchor == emailTextField.topAnchor }) {
+                emailTopConstraint.constant = 20
+            }
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateBottomBorders()
+    }
 
     func setUpAllImageView(){
         view.addSubview(topBackgroundImg)
         topBackgroundImg.addSubview(iconImg)
         
         NSLayoutConstraint.activate([
-            topBackgroundImg.topAnchor.constraint(equalTo: view.topAnchor, constant: -13),
-            topBackgroundImg.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            topBackgroundImg.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            topBackgroundImg.heightAnchor.constraint(equalToConstant: 200),
+            // Use safe area for top constraint
+            topBackgroundImg.topAnchor.constraint(equalTo: view.topAnchor, constant: -20),
+            topBackgroundImg.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topBackgroundImg.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            // Make height responsive to screen size - smaller for compact screens
+            topBackgroundImg.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.30),
             
             iconImg.centerXAnchor.constraint(equalTo: topBackgroundImg.centerXAnchor),
-            iconImg.centerYAnchor.constraint(equalTo: topBackgroundImg.centerYAnchor, constant: 40),
+            iconImg.centerYAnchor.constraint(equalTo: topBackgroundImg.centerYAnchor, constant: 20),
             iconImg.heightAnchor.constraint(equalToConstant: 80),
             iconImg.widthAnchor.constraint(equalToConstant: 80),
         ])
     }
-    
     
     func setUpLabels() {
         view.addSubview(dottedImg)
         view.addSubview(welcomeLbl)
         
         NSLayoutConstraint.activate([
-            dottedImg.topAnchor.constraint(equalTo: topBackgroundImg.bottomAnchor, constant: 30),
-            dottedImg.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            dottedImg.topAnchor.constraint(equalTo: topBackgroundImg.bottomAnchor, constant: 20),
+            dottedImg.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             dottedImg.widthAnchor.constraint(equalToConstant: 70),
             dottedImg.heightAnchor.constraint(equalToConstant: 40),
             
             welcomeLbl.topAnchor.constraint(equalTo: dottedImg.bottomAnchor, constant: 10),
-            welcomeLbl.leadingAnchor.constraint(equalTo: dottedImg.leadingAnchor, constant: 0),
-            
+            welcomeLbl.leadingAnchor.constraint(equalTo: dottedImg.leadingAnchor),
+            welcomeLbl.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
-        
     }
-
     
-    
-    func setUpTexytFields(){
+    func setUpTextFields(){
         view.addSubview(emailTextField)
         view.addSubview(passWordTxtField)
         
         NSLayoutConstraint.activate([
-            emailTextField.leadingAnchor.constraint(equalTo: welcomeLbl.leadingAnchor, constant: 0),
-            emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            emailTextField.leadingAnchor.constraint(equalTo: welcomeLbl.leadingAnchor),
+            emailTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             emailTextField.topAnchor.constraint(equalTo: welcomeLbl.bottomAnchor, constant: 30),
             emailTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            
-            passWordTxtField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 5),
-            passWordTxtField.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor, constant: 0),
-            passWordTxtField.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor, constant: 0),
+            passWordTxtField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+            passWordTxtField.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor),
+            passWordTxtField.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor),
             passWordTxtField.heightAnchor.constraint(equalToConstant: 50),
         ])
-        
     }
-        
     
     func setupButtons(){
         view.addSubview(loginBtn)
@@ -228,32 +223,64 @@ class LoginViewController: UIViewController {
         view.addSubview(doNotHaveLbl)
         view.addSubview(createBtn)
         
-        
         NSLayoutConstraint.activate([
-            loginBtn.topAnchor.constraint(equalTo: passWordTxtField.bottomAnchor, constant: 30),
-            loginBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            loginBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            loginBtn.heightAnchor.constraint(equalToConstant: 50),
+            // Login Button - full width with margins
+            loginBtn.topAnchor.constraint(equalTo: passWordTxtField.bottomAnchor, constant: 20),
+            loginBtn.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            loginBtn.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            loginBtn.heightAnchor.constraint(equalToConstant: 45),
             
-            forgetPasswordBtn.topAnchor.constraint(equalTo: loginBtn.bottomAnchor, constant: 10),
-            forgetPasswordBtn.leadingAnchor.constraint(equalTo: loginBtn.leadingAnchor),
-            forgetPasswordBtn.trailingAnchor.constraint(equalTo: loginBtn.trailingAnchor),
-            forgetPasswordBtn.heightAnchor.constraint(equalToConstant: 20),
+            // Forget Password Button - centered
+            forgetPasswordBtn.topAnchor.constraint(equalTo: loginBtn.bottomAnchor, constant: 8),
+            forgetPasswordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            forgetPasswordBtn.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
             
-            doNotHaveLbl.topAnchor.constraint(equalTo: forgetPasswordBtn.bottomAnchor, constant: 30),
-            //doNotHaveLbl.bottomAnchor.constraint(equalTo: createBtn.topAnchor, constant: -30),
-            doNotHaveLbl.leadingAnchor.constraint(equalTo: forgetPasswordBtn.leadingAnchor, constant: 0),
-            doNotHaveLbl.trailingAnchor.constraint(equalTo: forgetPasswordBtn.trailingAnchor, constant: 0),
+            // Don't have account label
+            doNotHaveLbl.topAnchor.constraint(equalTo: forgetPasswordBtn.bottomAnchor, constant: 15),
+            doNotHaveLbl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            doNotHaveLbl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
-            
-           // createBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20),
-            createBtn.topAnchor.constraint(equalTo: doNotHaveLbl.bottomAnchor, constant: 20),
+            // Create Button - responsive width
+            createBtn.topAnchor.constraint(equalTo: doNotHaveLbl.bottomAnchor, constant: 10),
             createBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            createBtn.widthAnchor.constraint(equalToConstant: 180),
-            createBtn.heightAnchor.constraint(equalToConstant: 50),
+            createBtn.heightAnchor.constraint(equalToConstant: 45),
+            // Make it adaptive but with constraints
+            createBtn.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.5),
+            createBtn.widthAnchor.constraint(lessThanOrEqualToConstant: 200),
+            createBtn.widthAnchor.constraint(greaterThanOrEqualToConstant: 120),
+            
+            // Add bottom constraint to ensure it fits on screen
+            createBtn.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
         ])
     }
     
+    func setupPasswordToggle() {
+        // Add eye icon for password visibility toggle
+        let eyeButton = UIButton(type: .custom)
+        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        eyeButton.tintColor = .gray
+        eyeButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
+        passWordTxtField.rightView = eyeButton
+        passWordTxtField.rightViewMode = .always
+    }
+    
+    private func updateBottomBorders() {
+        // Remove existing borders
+        emailBottomBorder?.removeFromSuperlayer()
+        passwordBottomBorder?.removeFromSuperlayer()
+        
+        // Add new borders with current frame width
+        emailBottomBorder = CALayer()
+        emailBottomBorder?.backgroundColor = UIColor.systemPurple.cgColor
+        emailBottomBorder?.frame = CGRect(x: 0, y: emailTextField.frame.height - 1.5, width: emailTextField.frame.width, height: 1.5)
+        emailTextField.layer.addSublayer(emailBottomBorder!)
+        
+        passwordBottomBorder = CALayer()
+        passwordBottomBorder?.backgroundColor = UIColor.systemPurple.cgColor
+        passwordBottomBorder?.frame = CGRect(x: 0, y: passWordTxtField.frame.height - 1.5, width: passWordTxtField.frame.width, height: 1.5)
+        passWordTxtField.layer.addSublayer(passwordBottomBorder!)
+    }
     
     @objc private func togglePasswordVisibility() {
         passWordTxtField.isSecureTextEntry.toggle()
@@ -264,6 +291,11 @@ class LoginViewController: UIViewController {
         }
     }
 }
+
+
+
+
+
 
 
 
