@@ -32,12 +32,31 @@ class TrendingProductsViewController: UIViewController {
         cv.showsVerticalScrollIndicator = false
         cv.delegate = self
         cv.dataSource = self
-        cv.backgroundColor = .clear
+        cv.backgroundColor = #colorLiteral(red: 0.9505864978, green: 0.9303696752, blue: 0.9908335805, alpha: 1)
+        cv.register(TrendingProductsCell.self, forCellWithReuseIdentifier: TrendingProductsCell.cellIdentifier)
         cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         return cv
     }()
+
     
+    //Navbar Buttons
+    let cartBtn:UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        btn.setBackgroundImage(UIImage(systemName: "cart"), for: .normal)
+        btn.tintColor = .white
+        return btn
+    }()
     
+    let sortBtn:UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        btn.setBackgroundImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
+        btn.tintColor = .white
+        return btn
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +66,7 @@ class TrendingProductsViewController: UIViewController {
         navigationController?.isNavigationBarHidden = false
        
         configureUI()
+        configureCompositionalLayout()
         setUpNavigation()
         setUpConstrains()
     }
@@ -70,6 +90,7 @@ class TrendingProductsViewController: UIViewController {
         btn.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         btn.setBackgroundImage(UIImage(systemName: "arrow.left"), for: .normal)
         btn.tintColor = .white
+        btn.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
         
         navigationController?.navigationBar.titleTextAttributes = [
                 .foregroundColor: UIColor.white,
@@ -79,6 +100,12 @@ class TrendingProductsViewController: UIViewController {
         navigationItem.title = "Trending Products"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: btn)
+        let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        spacer.width = 20
+
+        let cartButtonItem = UIBarButtonItem(customView: cartBtn)
+        let sortButtonItem = UIBarButtonItem(customView: sortBtn)
+        navigationItem.rightBarButtonItems = [cartButtonItem, spacer, sortButtonItem]
     }
     
     
@@ -99,4 +126,49 @@ class TrendingProductsViewController: UIViewController {
     }
     
    
+}
+
+
+
+extension TrendingProductsViewController {
+    
+    
+    func configureCompositionalLayout(){
+        let layout = UICollectionViewCompositionalLayout { sectionIndex , environment in
+            switch sectionIndex {
+            case 0:
+                return self.trendingProductsShowingSection()
+            default:
+                return nil
+            }
+        }
+        
+        layout.register(SectionBackgroundView.self, forDecorationViewOfKind: SectionBackgroundView.elementKind)
+        collectionView.setCollectionViewLayout(layout, animated: true)
+    }
+    
+    
+    
+    
+    func trendingProductsShowingSection() -> NSCollectionLayoutSection {
+        //Item will take 100% of its Group Size
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 5)
+        
+        //Define Group size and Group
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(250))
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2)
+        //Define Section which will Contain Group
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 3, bottom: 10, trailing: -3)
+        
+       // section.orthogonalScrollingBehavior = .continuous
+        return section
+    }
 }

@@ -143,6 +143,7 @@ class RegisterViewController: UIViewController {
         btn.setTitle("Login", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
+        btn.addTarget(self, action: #selector(moveToTrendingProducts), for: .touchUpInside)
         btn.layer.cornerRadius = 25
         btn.backgroundColor = #colorLiteral(red: 0.7340531349, green: 0.5922076106, blue: 0.9028964043, alpha: 1)
         return btn
@@ -298,9 +299,7 @@ class RegisterViewController: UIViewController {
             doNotHaveLbl.trailingAnchor.constraint(equalTo: forgetPasswordBtn.trailingAnchor, constant: 0),
             
             
-            
-            
-          
+    
             createBtn.topAnchor.constraint(equalTo: doNotHaveLbl.bottomAnchor, constant: 20),
             createBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             createBtn.widthAnchor.constraint(equalToConstant: 180),
@@ -373,7 +372,9 @@ class RegisterViewController: UIViewController {
     
     
     
-    
+    @objc func  moveToTrendingProducts(){
+        navigateToNextScreen()
+    }
 
     
 }

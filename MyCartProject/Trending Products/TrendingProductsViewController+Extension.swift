@@ -12,14 +12,45 @@ import UIKit
 
 extension TrendingProductsViewController:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return trendingProducts.count
+        default:
+            return 1
+        }
+    }
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? UICollectionViewCell else {fatalError("Unable deque cell...")}
-        cell.backgroundColor = .orange
-        return cell
+        
+        switch indexPath.section {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingProductsCell.cellIdentifier, for: indexPath) as?
+                    TrendingProductsCell else {fatalError("Unable deque cell...")}
+            cell.cellData = allTrendingProducts[indexPath.row]
+            cell.cardView.backgroundColor = .white
+            cell.backgroundColor = .clear
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? UICollectionViewCell else {fatalError("Unable deque cell...")}
+            cell.backgroundColor = .orange
+            return cell
+        }
+    
     }
     
-    
+}
+
+
+
+extension TrendingProductsViewController {
+    @objc func navigateBack(){
+        navigationController?.popViewController(animated: true)
+    }
 }

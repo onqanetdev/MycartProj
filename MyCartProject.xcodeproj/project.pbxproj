@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8AAFA6992E1CE62200289F78 /* TrendingProductsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA6982E1CE62200289F78 /* TrendingProductsCell.swift */; };
+		8AAFA69B2E1D007100289F78 /* AllTrendingProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */; };
 		8AB109F62E17854E001ED82C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB109F52E17854E001ED82C /* AppDelegate.swift */; };
 		8AB109F82E17854E001ED82C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB109F72E17854E001ED82C /* SceneDelegate.swift */; };
 		8AB109FA2E17854E001ED82C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB109F92E17854E001ED82C /* ViewController.swift */; };
@@ -41,6 +43,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8AAFA6982E1CE62200289F78 /* TrendingProductsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingProductsCell.swift; sourceTree = "<group>"; };
+		8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTrendingProducts.swift; sourceTree = "<group>"; };
 		8AB109F22E17854E001ED82C /* MyCartProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCartProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB109F52E17854E001ED82C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AB109F72E17854E001ED82C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8AAFA6972E1CE57F00289F78 /* TrendingProductsCell */ = {
+			isa = PBXGroup;
+			children = (
+				8AAFA6982E1CE62200289F78 /* TrendingProductsCell.swift */,
+			);
+			path = TrendingProductsCell;
+			sourceTree = "<group>";
+		};
 		8AB109E92E17854E001ED82C = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +155,7 @@
 				8AB10A132E178A25001ED82C /* AdBannerModel.swift */,
 				8AB10A152E178A4E001ED82C /* GroceryModel.swift */,
 				8AB10A172E178AAF001ED82C /* TrendingProductModel.swift */,
+				8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,6 +221,7 @@
 		8ABC6A852E1BCB0800BF8DC2 /* Trending Products */ = {
 			isa = PBXGroup;
 			children = (
+				8AAFA6972E1CE57F00289F78 /* TrendingProductsCell */,
 				8ABC6A862E1BCB6100BF8DC2 /* TrendingProductsViewController.swift */,
 				8ABC6A882E1BD5AD00BF8DC2 /* TrendingProductsViewController+Extension.swift */,
 			);
@@ -302,8 +316,10 @@
 				8AB109F62E17854E001ED82C /* AppDelegate.swift in Sources */,
 				8AB10A162E178A4F001ED82C /* GroceryModel.swift in Sources */,
 				8AB109F82E17854E001ED82C /* SceneDelegate.swift in Sources */,
+				8AAFA6992E1CE62200289F78 /* TrendingProductsCell.swift in Sources */,
 				8AB10A222E178DCE001ED82C /* TrendingProductsHeaderView.swift in Sources */,
 				8AB10A122E1789FE001ED82C /* TypesOfProduct.swift in Sources */,
+				8AAFA69B2E1D007100289F78 /* AllTrendingProducts.swift in Sources */,
 				8AB10A372E17B3E5001ED82C /* LoginViewController+Extension.swift in Sources */,
 				8AB10A0B2E178891001ED82C /* HomeViewController.swift in Sources */,
 				8AB10A242E178DE7001ED82C /* AllProductsHeaderView.swift in Sources */,

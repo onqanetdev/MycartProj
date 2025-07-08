@@ -57,7 +57,12 @@ class HomeViewController: UIViewController {
          
      }
      
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.isHidden = true
+    }
      
 
      private func configureUI() {
@@ -71,9 +76,6 @@ class HomeViewController: UIViewController {
              typeProductsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
          ])
      }
-     
-    
-    
      
  }
 
@@ -128,6 +130,7 @@ extension HomeViewController {
            
            section.orthogonalScrollingBehavior = .continuous
            
+           //HeaderView
            section.boundarySupplementaryItems = [
                .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(220)), elementKind: "Header", alignment: .top)
            ]
@@ -215,6 +218,7 @@ extension HomeViewController {
         
         section.orthogonalScrollingBehavior = .continuous
         
+        //For HeaderSection
         section.boundarySupplementaryItems = [
             .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(30)), elementKind: "Header", alignment: .top)
         ]

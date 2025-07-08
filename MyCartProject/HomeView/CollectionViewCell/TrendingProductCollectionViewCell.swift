@@ -24,7 +24,7 @@ class TrendingProductCollectionViewCell: UICollectionViewCell {
     }
     
     
-    private let cardView:UIView = {
+    public let cardView:UIView = {
         let vw = UIView()
         vw.translatesAutoresizingMaskIntoConstraints = false
         vw.backgroundColor = .white
