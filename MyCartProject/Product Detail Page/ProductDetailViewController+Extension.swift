@@ -1,8 +1,8 @@
 //
-//  TrendingProductsViewController+Extension.swift
+//  ProductDetailViewController+Extension.swift
 //  MyCartProject
 //
-//  Created by Onqanet on 07/07/25.
+//  Created by Onqanet on 09/07/25.
 //
 
 import Foundation
@@ -10,11 +10,11 @@ import UIKit
 
 
 
-extension TrendingProductsViewController:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ProductDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return trendingProducts.count
+            return allTrendingProducts.count
         default:
             return 1
         }
@@ -31,10 +31,10 @@ extension TrendingProductsViewController:  UICollectionViewDelegate, UICollectio
         
         switch indexPath.section {
         case 0:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingProductsCell.cellIdentifier, for: indexPath) as?
-                    TrendingProductsCell else {fatalError("Unable deque cell...")}
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductBannerCollectionViewCell.cellIdentifier, for: indexPath) as?
+                    ProductBannerCollectionViewCell else {fatalError("Unable deque cell...")}
             cell.cellData = allTrendingProducts[indexPath.row]
-            cell.cardView.backgroundColor = .white
+            //cell.cardView.backgroundColor = .white
             cell.backgroundColor = .clear
             return cell
         default:
@@ -42,19 +42,18 @@ extension TrendingProductsViewController:  UICollectionViewDelegate, UICollectio
             cell.backgroundColor = .orange
             return cell
         }
-    
+        
     }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(ProductDetailViewController(), animated: true)
+        //navigationController?.pushViewController(ProductDetailViewController(), animated: true)
     }
+    
+    
+    
+
+    
 }
 
 
-
-extension TrendingProductsViewController {
-    @objc func navigateBack(){
-        navigationController?.popViewController(animated: true)
-    }
-}

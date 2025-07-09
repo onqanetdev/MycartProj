@@ -1,13 +1,13 @@
 //
-//  TrendingProductsViewController.swift
+//  ProductDetailViewController.swift
 //  MyCartProject
 //
-//  Created by Onqanet on 07/07/25.
+//  Created by Onqanet on 08/07/25.
 //
 
 import UIKit
 
-class TrendingProductsViewController: UIViewController {
+class ProductDetailViewController: UIViewController {
     
     
     let stickyHeaderVw : UIView = {
@@ -26,20 +26,6 @@ class TrendingProductsViewController: UIViewController {
         return img
     }()
     
-    lazy var collectionView : UICollectionView = {
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.showsVerticalScrollIndicator = false
-        cv.delegate = self
-        cv.dataSource = self
-        cv.backgroundColor = #colorLiteral(red: 0.9505864978, green: 0.9303696752, blue: 0.9908335805, alpha: 1)
-        cv.register(TrendingProductsCell.self, forCellWithReuseIdentifier: TrendingProductsCell.cellIdentifier)
-        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        return cv
-    }()
-
-    
-    //Navbar Buttons
     let cartBtn:UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -49,36 +35,53 @@ class TrendingProductsViewController: UIViewController {
         return btn
     }()
     
-    let sortBtn:UIButton = {
-        let btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        btn.setBackgroundImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
-        btn.tintColor = .white
-        return btn
+    
+    // Add page control
+    let pageControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.translatesAutoresizingMaskIntoConstraints = false
+        pc.currentPageIndicatorTintColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        pc.pageIndicatorTintColor = #colorLiteral(red: 0.9505864978, green: 0.9303696752, blue: 0.9908335805, alpha: 1)
+        pc.hidesForSinglePage = true
+        pc.isUserInteractionEnabled = false
+        return pc
     }()
-
+    
+    
+    
+    lazy var collectionView : UICollectionView = {
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.showsVerticalScrollIndicator = false
+        cv.delegate = self
+        cv.dataSource = self
+        cv.backgroundColor = .white
+        cv.register(ProductBannerCollectionViewCell.self, forCellWithReuseIdentifier: ProductBannerCollectionViewCell.cellIdentifier)
+        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        return cv
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        navigationController?.navigationBar.isHidden = false
-        navigationController?.isNavigationBarHidden = false
-       
+        view.backgroundColor = .brown
         configureUI()
         configureCompositionalLayout()
         setUpNavigation()
         setUpConstrains()
+        
+        setupPageControl()
     }
+    
     
     func configureUI(){
-        view.backgroundColor = .systemBackground
         view.addSubview(stickyHeaderVw)
         view.addSubview(collectionView)
+        view.addSubview(pageControl) // Add page control to view
         stickyHeaderVw.addSubview(backgrounImg)
-       // view.addSubview(filterHeaderView)
     }
-    
     
     func setUpNavigation(){
         navigationController?.navigationBar.barTintColor = .green
@@ -93,21 +96,23 @@ class TrendingProductsViewController: UIViewController {
         btn.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
         
         navigationController?.navigationBar.titleTextAttributes = [
-                .foregroundColor: UIColor.white,
-                .font: UIFont.systemFont(ofSize: 18, weight: .bold) // Optional: custom font
-            ]
+            .foregroundColor: UIColor.white,
+            .font: UIFont.systemFont(ofSize: 18, weight: .bold) // Optional: custom font
+        ]
         
-        navigationItem.title = "Trending Products"
+        navigationItem.title = "Botanical Glow Skin Care"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: btn)
         let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         spacer.width = 20
-
-        let cartButtonItem = UIBarButtonItem(customView: cartBtn)
-        let sortButtonItem = UIBarButtonItem(customView: sortBtn)
-        navigationItem.rightBarButtonItems = [cartButtonItem, spacer, sortButtonItem]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartBtn)
     }
     
+    func setupPageControl() {
+        // Set the number of pages based on your data
+        pageControl.numberOfPages = allTrendingProducts.count
+        pageControl.currentPage = 0
+    }
     
     
     func setUpConstrains(){
@@ -121,23 +126,31 @@ class TrendingProductsViewController: UIViewController {
             backgrounImg.leadingAnchor.constraint(equalTo: stickyHeaderVw.leadingAnchor),
             backgrounImg.topAnchor.constraint(equalTo: stickyHeaderVw.topAnchor),
             backgrounImg.bottomAnchor.constraint(equalTo: stickyHeaderVw.bottomAnchor),
-            backgrounImg.trailingAnchor.constraint(equalTo: stickyHeaderVw.trailingAnchor)
+            backgrounImg.trailingAnchor.constraint(equalTo: stickyHeaderVw.trailingAnchor),
+            
+            
+            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pageControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 320), // Adjust based on your banner height
+            pageControl.heightAnchor.constraint(equalToConstant: 30)
         ])
+        
+        
     }
     
-   
+    @objc func navigateBack(){
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 
-
-extension TrendingProductsViewController {
-    
+extension ProductDetailViewController {
     
     func configureCompositionalLayout(){
         let layout = UICollectionViewCompositionalLayout { sectionIndex , environment in
             switch sectionIndex {
             case 0:
-                return self.trendingProductsShowingSection()
+                return self.productBannerSection()
             default:
                 return nil
             }
@@ -148,34 +161,31 @@ extension TrendingProductsViewController {
     }
     
     
-    
-    
-    func trendingProductsShowingSection() -> NSCollectionLayoutSection {
-        //Item will take 100% of its Group Size
-        
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1))
+    func productBannerSection()-> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 5)
         
-        //Define Group size and Group
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(250))
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2)
-        //Define Section which will Contain Group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(300))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 3, bottom: 10, trailing: -3)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+        section.orthogonalScrollingBehavior = .groupPagingCentered
         
-       // section.orthogonalScrollingBehavior = .continuous
+        // ✅ Update page control using visibleItemsInvalidationHandler
+        section.visibleItemsInvalidationHandler = { [weak self] (visibleItems, offset, environment) in
+            guard let self = self else { return }
+            let currentPage = Int(round(offset.x / environment.container.contentSize.width))
+            DispatchQueue.main.async {
+                self.pageControl.currentPage = currentPage
+            }
+        }
+        
+        
         return section
     }
-    
-    
 }
-
-
 
 
 

@@ -60,7 +60,14 @@ class TrendingProductsCell: UICollectionViewCell {
     }()
     
     
-    
+    private let oldPrice:UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "Helvetica", size: 13)
+        label.textColor = .systemGray
+        label.setStrikethrough(text: label.text ?? "Rs. 999/-")
+        return label
+    }()
 
     
     private let iconImg:UIImageView = {
@@ -152,6 +159,7 @@ class TrendingProductsCell: UICollectionViewCell {
         cardView.addSubview(productPrice)
         cardView.addSubview(iconImg)
         
+        cardView.addSubview(oldPrice)
         
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
@@ -172,6 +180,9 @@ class TrendingProductsCell: UICollectionViewCell {
             //productPrice.topAnchor.constraint(equalTo: productTitle.bottomAnchor, constant: 3),
             productPrice.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
             productPrice.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -10),
+            
+            oldPrice.leadingAnchor.constraint(equalTo: productPrice.trailingAnchor, constant: 12),
+            oldPrice.bottomAnchor.constraint(equalTo: productPrice.bottomAnchor),
             
             //iconImg.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 5),
             iconImg.trailingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: -5),
