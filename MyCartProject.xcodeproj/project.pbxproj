@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8AA41F552E1F876D002E127C /* ProductSegmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F542E1F876D002E127C /* ProductSegmentCollectionViewCell.swift */; };
 		8AAFA6992E1CE62200289F78 /* TrendingProductsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA6982E1CE62200289F78 /* TrendingProductsCell.swift */; };
 		8AAFA69B2E1D007100289F78 /* AllTrendingProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */; };
 		8AAFA69E2E1D442300289F78 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA69D2E1D442300289F78 /* ProductDetailViewController.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8AA41F542E1F876D002E127C /* ProductSegmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSegmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		8AAFA6982E1CE62200289F78 /* TrendingProductsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingProductsCell.swift; sourceTree = "<group>"; };
 		8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTrendingProducts.swift; sourceTree = "<group>"; };
 		8AAFA69D2E1D442300289F78 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 			children = (
 				8AD227B12E1E4C2A001C6504 /* ProductBannerCollectionViewCell.swift */,
 				8AD227B62E1E7963001C6504 /* ProductDetailsCollectionViewCell.swift */,
+				8AA41F542E1F876D002E127C /* ProductSegmentCollectionViewCell.swift */,
 			);
 			path = ProductDetailsCells;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				8AB10A202E178D9A001ED82C /* GroceryKitchenHeaderView.swift in Sources */,
 				8AB109FA2E17854E001ED82C /* ViewController.swift in Sources */,
 				8AB10A1D2E178B23001ED82C /* UIImage+Extension.swift in Sources */,
+				8AA41F552E1F876D002E127C /* ProductSegmentCollectionViewCell.swift in Sources */,
 				8AB10A182E178AAF001ED82C /* TrendingProductModel.swift in Sources */,
 				8ABC6A872E1BCB6100BF8DC2 /* TrendingProductsViewController.swift in Sources */,
 				8AB10A142E178A25001ED82C /* AdBannerModel.swift in Sources */,

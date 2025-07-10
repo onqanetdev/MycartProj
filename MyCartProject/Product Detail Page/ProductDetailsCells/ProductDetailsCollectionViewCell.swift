@@ -7,6 +7,10 @@
 
 import UIKit
 
+
+
+
+
 class ProductDetailsCollectionViewCell: UICollectionViewCell {
     
     static let cellIdentifier = "ProductDetailsCollectionViewCell"
@@ -91,21 +95,29 @@ class ProductDetailsCollectionViewCell: UICollectionViewCell {
     }()
     
     
-    let cartBtn:UIButton = {
+
+    
+    let cartBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        btn.setBackgroundImage(UIImage(systemName: "cart"), for: .normal)
-        btn.tintColor = .white
-            // btn.backgroundColor = .systemPurple
-        btn.layer.cornerRadius = 0
+
+        // Try to apply a bold symbol config (works only on symbol-compatible PDFs)
+        let boldConfig = UIImage.SymbolConfiguration(weight: .heavy)
+        let image = UIImage(named: "basket")?.withConfiguration(boldConfig).withRenderingMode(.alwaysTemplate)
+
+        btn.setBackgroundImage(image, for: .normal)
+        btn.tintColor = .white // Any color you want
         return btn
     }()
+
+
+    
+    
     
     let cartView:UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.7340531349, green: 0.5922076106, blue: 0.9028964043, alpha: 1)
         view.layer.cornerRadius = 23
         return view
     }()
@@ -114,7 +126,7 @@ class ProductDetailsCollectionViewCell: UICollectionViewCell {
     let decrementView:UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.7340531349, green: 0.5922076106, blue: 0.9028964043, alpha: 1)
         view.layer.cornerRadius = 15
         return view
     }()
@@ -122,7 +134,7 @@ class ProductDetailsCollectionViewCell: UICollectionViewCell {
     let incrementView:UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.7340531349, green: 0.5922076106, blue: 0.9028964043, alpha: 1)
         view.layer.cornerRadius = 15
         return view
     }()
@@ -210,7 +222,9 @@ class ProductDetailsCollectionViewCell: UICollectionViewCell {
             cartView.heightAnchor.constraint(equalToConstant: 46),
             
             cartBtn.centerYAnchor.constraint(equalTo: cartView.centerYAnchor),
-            cartBtn.centerXAnchor.constraint(equalTo: cartView.centerXAnchor)
+            cartBtn.centerXAnchor.constraint(equalTo: cartView.centerXAnchor),
+            cartBtn.widthAnchor.constraint(equalToConstant: 28),
+            cartBtn.heightAnchor.constraint(equalToConstant: 36),
         ])
         
     }
@@ -237,3 +251,9 @@ class ProductDetailsCollectionViewCell: UICollectionViewCell {
     
     
 }
+
+
+
+
+
+

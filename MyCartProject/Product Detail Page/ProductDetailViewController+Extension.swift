@@ -17,6 +17,8 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
             return allTrendingProducts.count
         case 1:
             return productDetails.count
+        case 2:
+            return 1
         default:
             return 1
         }
@@ -24,7 +26,7 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        3
     }
     
     
@@ -47,6 +49,16 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
             //cell.cardView.backgroundColor = .white
             cell.backgroundColor = .clear
             return cell
+            
+            
+        case 2:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductSegmentCollectionViewCell.cellIdentifier, for: indexPath) as?
+                    ProductSegmentCollectionViewCell else {fatalError("Unable deque cell...")}
+//            cell.cellData = productDetails[indexPath.row]
+            //cell.cardView.backgroundColor = .white
+            cell.backgroundColor = .clear
+            return cell
+            
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? UICollectionViewCell else {fatalError("Unable deque cell...")}
             cell.backgroundColor = .orange

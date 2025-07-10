@@ -58,6 +58,8 @@ class ProductDetailViewController: UIViewController {
         cv.backgroundColor = .white
         cv.register(ProductBannerCollectionViewCell.self, forCellWithReuseIdentifier: ProductBannerCollectionViewCell.cellIdentifier)
         cv.register(ProductDetailsCollectionViewCell.self, forCellWithReuseIdentifier: ProductDetailsCollectionViewCell.cellIdentifier)
+        
+        cv.register(ProductSegmentCollectionViewCell.self, forCellWithReuseIdentifier: ProductSegmentCollectionViewCell.cellIdentifier)
         cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         return cv
     }()
@@ -155,6 +157,8 @@ extension ProductDetailViewController {
                 
             case 1:
                 return self.bannerShowingSection()
+            case 2:
+                return self.productSegmentShowingSection()
             default:
                 return nil
             }
@@ -190,6 +194,8 @@ extension ProductDetailViewController {
         return section
     }
     
+    
+    
     func bannerShowingSection() -> NSCollectionLayoutSection {
         //Item will take 100% of its group image
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -209,6 +215,29 @@ extension ProductDetailViewController {
         
         return section
     }
+    
+    
+    
+    func productSegmentShowingSection() -> NSCollectionLayoutSection {
+        //Item will take 100% of its group image
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        //Define Group size and Group
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(270))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0)
+        //Define Section which will Contain Group
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+        
+        section.orthogonalScrollingBehavior = .continuous
+        
+        return section
+    }
+    
 }
 
 
