@@ -44,6 +44,9 @@
 		8AD227AD2E1E24B1001C6504 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD227AC2E1E24B1001C6504 /* UILabel+Extension.swift */; };
 		8AD227AF2E1E3D5C001C6504 /* ProductDetailViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD227AE2E1E3D5C001C6504 /* ProductDetailViewController+Extension.swift */; };
 		8AD227B22E1E4C2A001C6504 /* ProductBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD227B12E1E4C2A001C6504 /* ProductBannerCollectionViewCell.swift */; };
+		8AD227B52E1E766A001C6504 /* ProductDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD227B42E1E766A001C6504 /* ProductDetailModel.swift */; };
+		8AD227B72E1E7963001C6504 /* ProductDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD227B62E1E7963001C6504 /* ProductDetailsCollectionViewCell.swift */; };
+		8AD227B92E1E7CA3001C6504 /* StarRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD227B82E1E7CA3001C6504 /* StarRatingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +89,9 @@
 		8AD227AC2E1E24B1001C6504 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		8AD227AE2E1E3D5C001C6504 /* ProductDetailViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductDetailViewController+Extension.swift"; sourceTree = "<group>"; };
 		8AD227B12E1E4C2A001C6504 /* ProductBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		8AD227B42E1E766A001C6504 /* ProductDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailModel.swift; sourceTree = "<group>"; };
+		8AD227B62E1E7963001C6504 /* ProductDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
+		8AD227B82E1E7CA3001C6504 /* StarRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +156,7 @@
 				8AB109FE2E178550001ED82C /* Assets.xcassets */,
 				8AB10A002E178550001ED82C /* LaunchScreen.storyboard */,
 				8AB10A032E178550001ED82C /* Info.plist */,
+				8AD227B82E1E7CA3001C6504 /* StarRatingViewController.swift */,
 			);
 			path = MyCartProject;
 			sourceTree = "<group>";
@@ -169,6 +176,7 @@
 		8AB10A0E2E17896C001ED82C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8AD227B32E1E75BE001C6504 /* Product Details */,
 				8AB10A0F2E1789B8001ED82C /* FoodTopBannerModel.swift */,
 				8AB10A112E1789FE001ED82C /* TypesOfProduct.swift */,
 				8AB10A132E178A25001ED82C /* AdBannerModel.swift */,
@@ -252,8 +260,17 @@
 			isa = PBXGroup;
 			children = (
 				8AD227B12E1E4C2A001C6504 /* ProductBannerCollectionViewCell.swift */,
+				8AD227B62E1E7963001C6504 /* ProductDetailsCollectionViewCell.swift */,
 			);
 			path = ProductDetailsCells;
+			sourceTree = "<group>";
+		};
+		8AD227B32E1E75BE001C6504 /* Product Details */ = {
+			isa = PBXGroup;
+			children = (
+				8AD227B42E1E766A001C6504 /* ProductDetailModel.swift */,
+			);
+			path = "Product Details";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +362,7 @@
 				8AB109F62E17854E001ED82C /* AppDelegate.swift in Sources */,
 				8AB10A162E178A4F001ED82C /* GroceryModel.swift in Sources */,
 				8AB109F82E17854E001ED82C /* SceneDelegate.swift in Sources */,
+				8AD227B92E1E7CA3001C6504 /* StarRatingViewController.swift in Sources */,
 				8AAFA6992E1CE62200289F78 /* TrendingProductsCell.swift in Sources */,
 				8AB10A222E178DCE001ED82C /* TrendingProductsHeaderView.swift in Sources */,
 				8AB10A122E1789FE001ED82C /* TypesOfProduct.swift in Sources */,
@@ -357,6 +375,8 @@
 				8AB10A102E1789B8001ED82C /* FoodTopBannerModel.swift in Sources */,
 				8AB10A3C2E17E7C6001ED82C /* RegisterViewController+Extension.swift in Sources */,
 				8AB10A292E178F61001ED82C /* BannerCollectionViewCell.swift in Sources */,
+				8AD227B52E1E766A001C6504 /* ProductDetailModel.swift in Sources */,
+				8AD227B72E1E7963001C6504 /* ProductDetailsCollectionViewCell.swift in Sources */,
 				8AD227AF2E1E3D5C001C6504 /* ProductDetailViewController+Extension.swift in Sources */,
 				8AB10A302E179198001ED82C /* SectionBackgroundView.swift in Sources */,
 				8AD227B22E1E4C2A001C6504 /* ProductBannerCollectionViewCell.swift in Sources */,
