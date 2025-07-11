@@ -60,6 +60,12 @@ class ProductDetailViewController: UIViewController {
         cv.register(ProductDetailsCollectionViewCell.self, forCellWithReuseIdentifier: ProductDetailsCollectionViewCell.cellIdentifier)
         
         cv.register(ProductSegmentCollectionViewCell.self, forCellWithReuseIdentifier: ProductSegmentCollectionViewCell.cellIdentifier)
+        
+        cv.register(ProductDescriptionCollectionViewCell.self, forCellWithReuseIdentifier: ProductDescriptionCollectionViewCell.cellIdentifier)
+        
+        
+        cv.register(ProductReviewsCollectionViewCell.self, forCellWithReuseIdentifier: ProductReviewsCollectionViewCell.cellIdentifier)
+        
         cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         return cv
     }()
@@ -75,14 +81,14 @@ class ProductDetailViewController: UIViewController {
         setUpNavigation()
         setUpConstrains()
         
-        setupPageControl()
+       
     }
     
     
     func configureUI(){
         view.addSubview(stickyHeaderVw)
         view.addSubview(collectionView)
-        view.addSubview(pageControl) // Add page control to view
+        
         stickyHeaderVw.addSubview(backgrounImg)
     }
     
@@ -111,11 +117,6 @@ class ProductDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartBtn)
     }
     
-    func setupPageControl() {
-        // Set the number of pages based on your data
-        pageControl.numberOfPages = allTrendingProducts.count
-        pageControl.currentPage = 0
-    }
     
     
     func setUpConstrains(){
@@ -131,10 +132,7 @@ class ProductDetailViewController: UIViewController {
             backgrounImg.bottomAnchor.constraint(equalTo: stickyHeaderVw.bottomAnchor),
             backgrounImg.trailingAnchor.constraint(equalTo: stickyHeaderVw.trailingAnchor),
             
-            
-            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 320), // Adjust based on your banner height
-            pageControl.heightAnchor.constraint(equalToConstant: 30)
+
         ])
         
         
@@ -154,11 +152,12 @@ extension ProductDetailViewController {
             switch sectionIndex {
             case 0:
                 return self.productBannerSection()
-                
             case 1:
                 return self.bannerShowingSection()
             case 2:
                 return self.productSegmentShowingSection()
+            case 3:
+                return self.productDescriptionShowingSection()
             default:
                 return nil
             }
@@ -166,6 +165,9 @@ extension ProductDetailViewController {
         
         layout.register(SectionBackgroundView.self, forDecorationViewOfKind: SectionBackgroundView.elementKind)
         collectionView.setCollectionViewLayout(layout, animated: true)
+        
+        // Register the footer view
+        collectionView.register(PageControlFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: PageControlFooterView.reuseIdentifier)
     }
     
     
@@ -189,6 +191,25 @@ extension ProductDetailViewController {
                 self.pageControl.currentPage = currentPage
             }
         }
+        
+        
+        // Add footer to the section
+                let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
+                let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+                section.boundarySupplementaryItems = [footer]
+                
+                // Keep the visibleItemsInvalidationHandler but update the footer's page control
+                section.visibleItemsInvalidationHandler = { [weak self] (visibleItems, offset, environment) in
+                    guard let self = self else { return }
+                    let currentPage = Int(round(offset.x / environment.container.contentSize.width))
+                    DispatchQueue.main.async {
+                        // Update the footer's page control
+                        if let footerView = self.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: 0)) as? PageControlFooterView {
+                            footerView.pageControl.currentPage = currentPage
+                        }
+                    }
+                }
+        
         
         
         return section
@@ -225,7 +246,28 @@ extension ProductDetailViewController {
         
         //Define Group size and Group
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(270))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(70))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0)
+        //Define Section which will Contain Group
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+        
+        section.orthogonalScrollingBehavior = .continuous
+        
+        return section
+    }
+    
+    
+    func productDescriptionShowingSection() -> NSCollectionLayoutSection {
+        //Item will take 100% of its group image
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        //Define Group size and Group
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(250))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0)
         //Define Section which will Contain Group

@@ -19,6 +19,8 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
             return productDetails.count
         case 2:
             return 1
+        case 3:
+            return 1
         default:
             return 1
         }
@@ -26,7 +28,7 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        3
+        4
     }
     
     
@@ -54,9 +56,24 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
         case 2:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductSegmentCollectionViewCell.cellIdentifier, for: indexPath) as?
                     ProductSegmentCollectionViewCell else {fatalError("Unable deque cell...")}
-//            cell.cellData = productDetails[indexPath.row]
-            //cell.cardView.backgroundColor = .white
             cell.backgroundColor = .clear
+            cell.onReviewsTapped = {
+                
+            }
+            
+            cell.onDescriptionTapped = {
+                
+                
+            }
+            
+            
+            return cell
+            
+        case 3:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductDescriptionCollectionViewCell.cellIdentifier, for: indexPath) as?
+                    ProductDescriptionCollectionViewCell else {fatalError("Unable deque cell...")}
+            cell.backgroundColor = .clear
+            
             return cell
             
         default:
@@ -73,9 +90,26 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
     }
     
     
-    
+    // MARK: - Supplementary View (Footer)
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionView.elementKindSectionFooter && indexPath.section == 0 {
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PageControlFooterView.reuseIdentifier, for: indexPath) as! PageControlFooterView
+            
+            // Configure the page control
+            footerView.pageControl.numberOfPages = allTrendingProducts.count
+            footerView.pageControl.currentPage = 0
+            
+            return footerView
+        }
+        
+        return UICollectionReusableView()
+    }
 
     
 }
+
+
+
 
 

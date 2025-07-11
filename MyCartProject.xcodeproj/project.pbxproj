@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8AA41F552E1F876D002E127C /* ProductSegmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F542E1F876D002E127C /* ProductSegmentCollectionViewCell.swift */; };
+		8AA41F582E1FCD93002E127C /* PageControlFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F572E1FCD93002E127C /* PageControlFooterView.swift */; };
+		8AA41F5A2E1FD328002E127C /* ProductReviewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F592E1FD328002E127C /* ProductReviewsCollectionViewCell.swift */; };
+		8AA41F5C2E1FDFF7002E127C /* ProductDescriptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F5B2E1FDFF7002E127C /* ProductDescriptionCollectionViewCell.swift */; };
 		8AAFA6992E1CE62200289F78 /* TrendingProductsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA6982E1CE62200289F78 /* TrendingProductsCell.swift */; };
 		8AAFA69B2E1D007100289F78 /* AllTrendingProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */; };
 		8AAFA69E2E1D442300289F78 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA69D2E1D442300289F78 /* ProductDetailViewController.swift */; };
@@ -52,6 +55,9 @@
 
 /* Begin PBXFileReference section */
 		8AA41F542E1F876D002E127C /* ProductSegmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSegmentCollectionViewCell.swift; sourceTree = "<group>"; };
+		8AA41F572E1FCD93002E127C /* PageControlFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlFooterView.swift; sourceTree = "<group>"; };
+		8AA41F592E1FD328002E127C /* ProductReviewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewsCollectionViewCell.swift; sourceTree = "<group>"; };
+		8AA41F5B2E1FDFF7002E127C /* ProductDescriptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDescriptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		8AAFA6982E1CE62200289F78 /* TrendingProductsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingProductsCell.swift; sourceTree = "<group>"; };
 		8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTrendingProducts.swift; sourceTree = "<group>"; };
 		8AAFA69D2E1D442300289F78 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +113,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8AA41F562E1FCD5E002E127C /* CollectionView Reusable VIew */ = {
+			isa = PBXGroup;
+			children = (
+				8AA41F572E1FCD93002E127C /* PageControlFooterView.swift */,
+			);
+			path = "CollectionView Reusable VIew";
+			sourceTree = "<group>";
+		};
 		8AAFA6972E1CE57F00289F78 /* TrendingProductsCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +132,7 @@
 		8AAFA69C2E1D42AB00289F78 /* Product Detail Page */ = {
 			isa = PBXGroup;
 			children = (
+				8AA41F562E1FCD5E002E127C /* CollectionView Reusable VIew */,
 				8AD227B02E1E4004001C6504 /* ProductDetailsCells */,
 				8AAFA69D2E1D442300289F78 /* ProductDetailViewController.swift */,
 				8AD227AE2E1E3D5C001C6504 /* ProductDetailViewController+Extension.swift */,
@@ -264,6 +279,8 @@
 				8AD227B12E1E4C2A001C6504 /* ProductBannerCollectionViewCell.swift */,
 				8AD227B62E1E7963001C6504 /* ProductDetailsCollectionViewCell.swift */,
 				8AA41F542E1F876D002E127C /* ProductSegmentCollectionViewCell.swift */,
+				8AA41F592E1FD328002E127C /* ProductReviewsCollectionViewCell.swift */,
+				8AA41F5B2E1FDFF7002E127C /* ProductDescriptionCollectionViewCell.swift */,
 			);
 			path = ProductDetailsCells;
 			sourceTree = "<group>";
@@ -352,6 +369,7 @@
 				8AB10A332E17973C001ED82C /* LoginViewController.swift in Sources */,
 				8AB10A272E178F42001ED82C /* TypeOfProdCollectionViewCell.swift in Sources */,
 				8AB10A1B2E178AF1001ED82C /* UIView+Extension.swift in Sources */,
+				8AA41F5C2E1FDFF7002E127C /* ProductDescriptionCollectionViewCell.swift in Sources */,
 				8AB10A3A2E17E5FC001ED82C /* RegisterViewController.swift in Sources */,
 				8AB10A0D2E178930001ED82C /* HomeViewController+Extension.swift in Sources */,
 				8AB10A202E178D9A001ED82C /* GroceryKitchenHeaderView.swift in Sources */,
@@ -369,6 +387,7 @@
 				8AD227B92E1E7CA3001C6504 /* StarRatingViewController.swift in Sources */,
 				8AAFA6992E1CE62200289F78 /* TrendingProductsCell.swift in Sources */,
 				8AB10A222E178DCE001ED82C /* TrendingProductsHeaderView.swift in Sources */,
+				8AA41F5A2E1FD328002E127C /* ProductReviewsCollectionViewCell.swift in Sources */,
 				8AB10A122E1789FE001ED82C /* TypesOfProduct.swift in Sources */,
 				8AAFA69B2E1D007100289F78 /* AllTrendingProducts.swift in Sources */,
 				8AB10A372E17B3E5001ED82C /* LoginViewController+Extension.swift in Sources */,
@@ -376,6 +395,7 @@
 				8AD227AD2E1E24B1001C6504 /* UILabel+Extension.swift in Sources */,
 				8AB10A242E178DE7001ED82C /* AllProductsHeaderView.swift in Sources */,
 				8AB10A352E17AC83001ED82C /* UITextField+Extension.swift in Sources */,
+				8AA41F582E1FCD93002E127C /* PageControlFooterView.swift in Sources */,
 				8AB10A102E1789B8001ED82C /* FoodTopBannerModel.swift in Sources */,
 				8AB10A3C2E17E7C6001ED82C /* RegisterViewController+Extension.swift in Sources */,
 				8AB10A292E178F61001ED82C /* BannerCollectionViewCell.swift in Sources */,
