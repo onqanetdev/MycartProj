@@ -21,6 +21,8 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
             return 1
         case 3:
             return 1
+            // Hide section 3 when showing reviews
+           // return currentContentType == .description ? 1 : 0
         default:
             return 1
         }
@@ -57,24 +59,42 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductSegmentCollectionViewCell.cellIdentifier, for: indexPath) as?
                     ProductSegmentCollectionViewCell else {fatalError("Unable deque cell...")}
             cell.backgroundColor = .clear
-            cell.onReviewsTapped = {
-                
+            // Handle segment taps
+            cell.onReviewsTapped = { [weak self] in
+                self?.switchToReviews()
             }
             
-            cell.onDescriptionTapped = {
-                
-                
+            cell.onDescriptionTapped = { [weak self] in
+                self?.switchToDescription()
             }
             
             
             return cell
             
         case 3:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductDescriptionCollectionViewCell.cellIdentifier, for: indexPath) as?
-                    ProductDescriptionCollectionViewCell else {fatalError("Unable deque cell...")}
-            cell.backgroundColor = .clear
+//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductDescriptionCollectionViewCell.cellIdentifier, for: indexPath) as?
+//                    ProductDescriptionCollectionViewCell else {fatalError("Unable deque cell...")}
+//            cell.backgroundColor = .clear
+//            
+//            return cell
             
-            return cell
+            
+            if currentContentType == .description {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductDescriptionCollectionViewCell.cellIdentifier, for: indexPath) as? ProductDescriptionCollectionViewCell else {
+                    fatalError("Unable deque cell...")
+                }
+                cell.backgroundColor = .clear
+                return cell
+            } else {
+                // Show reviews cell
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductReviewsCollectionViewCell.cellIdentifier, for: indexPath) as? ProductReviewsCollectionViewCell else {
+                    fatalError("Unable deque cell...")
+                }
+                cell.backgroundColor = .clear
+                return cell
+            }
+            
+            
             
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? UICollectionViewCell else {fatalError("Unable deque cell...")}
@@ -105,8 +125,6 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
         
         return UICollectionReusableView()
     }
-
-    
 }
 
 

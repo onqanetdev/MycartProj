@@ -70,7 +70,7 @@ class ProductReviewsCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(reviewsView)
         
         NSLayoutConstraint.activate([
-            reviewsView.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10),
+            reviewsView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             reviewsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             reviewsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             reviewsView.heightAnchor.constraint(equalToConstant: 300)

@@ -29,7 +29,7 @@ class TrendingProductsHeaderView: UICollectionReusableView {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("View All", for: .normal)
-        btn.setTitleColor(UIColor(.purple), for: .normal)
+        btn.setTitleColor(UIColor(#colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)), for: .normal)
         btn.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 13)
         
         return btn

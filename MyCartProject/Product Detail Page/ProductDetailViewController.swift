@@ -71,6 +71,15 @@ class ProductDetailViewController: UIViewController {
     }()
     
     
+    // MARK: - State Management
+    enum ContentType {
+        case description
+        case reviews
+    }
+    
+    public var currentContentType: ContentType = .description
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -142,10 +151,28 @@ class ProductDetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    
+    // MARK: - Content Type Management
+    public func switchToReviews() {
+        currentContentType = .reviews
+        collectionView.reloadSections(IndexSet(integer: 3))
+       
+    }
+    
+    public func switchToDescription() {
+        currentContentType = .description
+        collectionView.reloadSections(IndexSet(integer: 3))
+       
+    }
+    
+    
+    
+    
 }
 
 
 extension ProductDetailViewController {
+    
     
     func configureCompositionalLayout(){
         let layout = UICollectionViewCompositionalLayout { sectionIndex , environment in
@@ -157,7 +184,8 @@ extension ProductDetailViewController {
             case 2:
                 return self.productSegmentShowingSection()
             case 3:
-                return self.productDescriptionShowingSection()
+                //return self.productDescriptionShowingSection()
+                return self.currentContentType == .description ? self.productDescriptionShowingSection() : self.productReviewsShowingSection()
             default:
                 return nil
             }
@@ -267,7 +295,28 @@ extension ProductDetailViewController {
         
         //Define Group size and Group
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(250))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(180))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0)
+        //Define Section which will Contain Group
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+        
+        section.orthogonalScrollingBehavior = .continuous
+        
+        return section
+    }
+    
+    
+    func productReviewsShowingSection() -> NSCollectionLayoutSection {
+        //Item will take 100% of its group image
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        //Define Group size and Group
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(350))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0)
         //Define Section which will Contain Group
