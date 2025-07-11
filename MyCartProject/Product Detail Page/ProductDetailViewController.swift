@@ -89,8 +89,6 @@ class ProductDetailViewController: UIViewController {
         configureCompositionalLayout()
         setUpNavigation()
         setUpConstrains()
-        
-       
     }
     
     
@@ -118,7 +116,7 @@ class ProductDetailViewController: UIViewController {
             .font: UIFont.systemFont(ofSize: 18, weight: .bold) // Optional: custom font
         ]
         
-        navigationItem.title = "Botanical Glow Skin Care"
+        navigationItem.title = "My Cart"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: btn)
         let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
@@ -143,8 +141,6 @@ class ProductDetailViewController: UIViewController {
             
 
         ])
-        
-        
     }
     
     @objc func navigateBack(){

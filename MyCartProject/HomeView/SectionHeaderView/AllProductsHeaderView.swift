@@ -29,6 +29,8 @@ class AllProductsHeaderView: UICollectionReusableView {
         return imageView
     }()
     
+    
+    var onCartTapped: (() -> Void)?
 
 
     // MARK: - Initialization
@@ -227,10 +229,12 @@ class AllProductsHeaderView: UICollectionReusableView {
     @objc private func cartTapped() {
         print("Cart tapped")
         // Add your cart action here
+        onCartTapped?()
     }
     
     @objc private func bellTapped() {
         print("Bell notification tapped")
         // Add your notification action here
+        
     }
 }

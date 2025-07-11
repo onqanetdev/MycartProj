@@ -78,6 +78,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AllProductsHeaderView.headerIdentifier, for: indexPath) as! AllProductsHeaderView
                 //header.delegate = self
                 header.backgroundColor = .clear
+                header.onCartTapped = { [weak self] in
+                    let vc = BasketGroupViewController()
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
                 return header
                 
             case 2:

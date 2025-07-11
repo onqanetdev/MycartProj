@@ -11,6 +11,10 @@
 		8AA41F582E1FCD93002E127C /* PageControlFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F572E1FCD93002E127C /* PageControlFooterView.swift */; };
 		8AA41F5A2E1FD328002E127C /* ProductReviewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F592E1FD328002E127C /* ProductReviewsCollectionViewCell.swift */; };
 		8AA41F5C2E1FDFF7002E127C /* ProductDescriptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F5B2E1FDFF7002E127C /* ProductDescriptionCollectionViewCell.swift */; };
+		8AA622DE2E20EBF000693239 /* BasketGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA622DD2E20EBF000693239 /* BasketGroupViewController.swift */; };
+		8AA622E02E210E1D00693239 /* BasketGroupViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA622DF2E210E1C00693239 /* BasketGroupViewController+Extension.swift */; };
+		8AA622E32E210F7700693239 /* BasketGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA622E22E210F7700693239 /* BasketGroupCollectionViewCell.swift */; };
+		8AA622E52E21122D00693239 /* RestaurantListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA622E42E21122D00693239 /* RestaurantListModel.swift */; };
 		8AAFA6992E1CE62200289F78 /* TrendingProductsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA6982E1CE62200289F78 /* TrendingProductsCell.swift */; };
 		8AAFA69B2E1D007100289F78 /* AllTrendingProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */; };
 		8AAFA69E2E1D442300289F78 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFA69D2E1D442300289F78 /* ProductDetailViewController.swift */; };
@@ -58,6 +62,10 @@
 		8AA41F572E1FCD93002E127C /* PageControlFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlFooterView.swift; sourceTree = "<group>"; };
 		8AA41F592E1FD328002E127C /* ProductReviewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		8AA41F5B2E1FDFF7002E127C /* ProductDescriptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDescriptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		8AA622DD2E20EBF000693239 /* BasketGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketGroupViewController.swift; sourceTree = "<group>"; };
+		8AA622DF2E210E1C00693239 /* BasketGroupViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketGroupViewController+Extension.swift"; sourceTree = "<group>"; };
+		8AA622E22E210F7700693239 /* BasketGroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketGroupCollectionViewCell.swift; sourceTree = "<group>"; };
+		8AA622E42E21122D00693239 /* RestaurantListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListModel.swift; sourceTree = "<group>"; };
 		8AAFA6982E1CE62200289F78 /* TrendingProductsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingProductsCell.swift; sourceTree = "<group>"; };
 		8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTrendingProducts.swift; sourceTree = "<group>"; };
 		8AAFA69D2E1D442300289F78 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +129,24 @@
 			path = "CollectionView Reusable VIew";
 			sourceTree = "<group>";
 		};
+		8AA622DC2E20EB4900693239 /* Basket Groups */ = {
+			isa = PBXGroup;
+			children = (
+				8AA622E12E210F2200693239 /* Basket Group Cells */,
+				8AA622DD2E20EBF000693239 /* BasketGroupViewController.swift */,
+				8AA622DF2E210E1C00693239 /* BasketGroupViewController+Extension.swift */,
+			);
+			path = "Basket Groups";
+			sourceTree = "<group>";
+		};
+		8AA622E12E210F2200693239 /* Basket Group Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8AA622E22E210F7700693239 /* BasketGroupCollectionViewCell.swift */,
+			);
+			path = "Basket Group Cells";
+			sourceTree = "<group>";
+		};
 		8AAFA6972E1CE57F00289F78 /* TrendingProductsCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +185,7 @@
 		8AB109F42E17854E001ED82C /* MyCartProject */ = {
 			isa = PBXGroup;
 			children = (
+				8AA622DC2E20EB4900693239 /* Basket Groups */,
 				8AAFA69C2E1D42AB00289F78 /* Product Detail Page */,
 				8ABC6A852E1BCB0800BF8DC2 /* Trending Products */,
 				8AB10A382E17E5D8001ED82C /* RegisterView */,
@@ -200,6 +227,7 @@
 				8AB10A152E178A4E001ED82C /* GroceryModel.swift */,
 				8AB10A172E178AAF001ED82C /* TrendingProductModel.swift */,
 				8AAFA69A2E1D007100289F78 /* AllTrendingProducts.swift */,
+				8AA622E42E21122D00693239 /* RestaurantListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -370,10 +398,12 @@
 				8AB10A272E178F42001ED82C /* TypeOfProdCollectionViewCell.swift in Sources */,
 				8AB10A1B2E178AF1001ED82C /* UIView+Extension.swift in Sources */,
 				8AA41F5C2E1FDFF7002E127C /* ProductDescriptionCollectionViewCell.swift in Sources */,
+				8AA622DE2E20EBF000693239 /* BasketGroupViewController.swift in Sources */,
 				8AB10A3A2E17E5FC001ED82C /* RegisterViewController.swift in Sources */,
 				8AB10A0D2E178930001ED82C /* HomeViewController+Extension.swift in Sources */,
 				8AB10A202E178D9A001ED82C /* GroceryKitchenHeaderView.swift in Sources */,
 				8AB109FA2E17854E001ED82C /* ViewController.swift in Sources */,
+				8AA622E52E21122D00693239 /* RestaurantListModel.swift in Sources */,
 				8AB10A1D2E178B23001ED82C /* UIImage+Extension.swift in Sources */,
 				8AA41F552E1F876D002E127C /* ProductSegmentCollectionViewCell.swift in Sources */,
 				8AB10A182E178AAF001ED82C /* TrendingProductModel.swift in Sources */,
@@ -394,6 +424,8 @@
 				8AB10A0B2E178891001ED82C /* HomeViewController.swift in Sources */,
 				8AD227AD2E1E24B1001C6504 /* UILabel+Extension.swift in Sources */,
 				8AB10A242E178DE7001ED82C /* AllProductsHeaderView.swift in Sources */,
+				8AA622E02E210E1D00693239 /* BasketGroupViewController+Extension.swift in Sources */,
+				8AA622E32E210F7700693239 /* BasketGroupCollectionViewCell.swift in Sources */,
 				8AB10A352E17AC83001ED82C /* UITextField+Extension.swift in Sources */,
 				8AA41F582E1FCD93002E127C /* PageControlFooterView.swift in Sources */,
 				8AB10A102E1789B8001ED82C /* FoodTopBannerModel.swift in Sources */,
