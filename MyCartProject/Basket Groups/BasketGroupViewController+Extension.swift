@@ -13,14 +13,41 @@ import UIKit
 
 extension BasketGroupViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return restaurantListMockData.count
+        
+        switch section {
+        case 0:
+            return restaurantListMockData.count
+        case 1:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketGroupCollectionViewCell.cellIdentifier, for: indexPath) as? BasketGroupCollectionViewCell else {fatalError("Unable deque cell...")}
-            cell.cellData = restaurantListMockData[indexPath.row]
-         return cell
+        
+        switch indexPath.section {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketGroupCollectionViewCell.cellIdentifier, for: indexPath) as? BasketGroupCollectionViewCell else {fatalError("Unable deque cell...")}
+                cell.cellData = restaurantListMockData[indexPath.row]
+             return cell
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketTotalCollectionViewCell.cellIdentifier, for: indexPath) as? BasketTotalCollectionViewCell else {fatalError("Unable deque cell...")}
+            return cell
+            
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? UICollectionViewCell else {fatalError("Unable deque cell...")}
+            cell.backgroundColor = .orange
+            return cell
+        }
+        
     }
     
     

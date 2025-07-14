@@ -61,11 +61,41 @@ class BasketGroupCollectionViewCell: UICollectionViewCell {
     let crossBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setBackgroundImage(UIImage(systemName: "xmark"), for: .normal)
+        
+        let config = UIImage.SymbolConfiguration(weight: .bold) // You can also try .heavy or .semibold
+            let image = UIImage(systemName: "xmark", withConfiguration: config)
+        
+        btn.setBackgroundImage(image, for: .normal)
         btn.tintColor = .black
         return btn
     }()
     
+    //Let increment decerement btn
+    
+    let minusBtn:UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setBackgroundImage(UIImage(systemName: "minus.circle.fill"), for: .normal)
+        btn.tintColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        return btn
+    }()
+    
+    let plusBtn:UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setBackgroundImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        btn.tintColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        return btn
+    }()
+    
+    let quatityLabel:UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.text = "1"
+        lbl.font = UIFont.systemFont(ofSize: 20) // Set font size here
+        lbl.tintColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        return lbl
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -90,6 +120,13 @@ class BasketGroupCollectionViewCell: UICollectionViewCell {
         cardView.addSubview(starStackView)
         cardView.addSubview(priceLbl)
         cardView.addSubview(crossBtn)
+        
+        //Quantity Label Setup
+        
+        cardView.addSubview(minusBtn)
+        cardView.addSubview(quatityLabel)
+        cardView.addSubview(plusBtn)
+        
     }
     
     func setupConstraints(){
@@ -116,10 +153,22 @@ class BasketGroupCollectionViewCell: UICollectionViewCell {
             priceLbl.leadingAnchor.constraint(equalTo: productTitle.leadingAnchor),
             priceLbl.topAnchor.constraint(equalTo: starStackView.bottomAnchor, constant: 5),
             
-            crossBtn.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 10),
-            crossBtn.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10),
+            crossBtn.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 13),
+            crossBtn.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -15),
             crossBtn.widthAnchor.constraint(equalToConstant: 16),
             crossBtn.heightAnchor.constraint(equalToConstant: 20),
+            
+            
+            plusBtn.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10),
+            plusBtn.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -20),
+
+            
+            quatityLabel.trailingAnchor.constraint(equalTo: plusBtn.leadingAnchor, constant: -10),
+            quatityLabel.bottomAnchor.constraint(equalTo: plusBtn.bottomAnchor, constant: 0),
+            
+            minusBtn.trailingAnchor.constraint(equalTo: quatityLabel.leadingAnchor, constant: -10),
+            minusBtn.bottomAnchor.constraint(equalTo: plusBtn.bottomAnchor, constant: 0),
+            
         ])
     }
     

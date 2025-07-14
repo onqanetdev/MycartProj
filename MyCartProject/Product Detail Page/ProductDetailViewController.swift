@@ -121,6 +121,7 @@ class ProductDetailViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: btn)
         let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         spacer.width = 20
+        cartBtn.addTarget(self, action: #selector(moveToCart), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartBtn)
     }
     
@@ -161,7 +162,9 @@ class ProductDetailViewController: UIViewController {
        
     }
     
-    
+    @objc func moveToCart(){
+        navigationController?.pushViewController(BasketGroupViewController(), animated: true)
+    }
     
     
 }

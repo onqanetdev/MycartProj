@@ -35,10 +35,58 @@ class BasketGroupViewController: UIViewController {
         cv.dataSource = self
         cv.backgroundColor = #colorLiteral(red: 0.9505864978, green: 0.9303696752, blue: 0.9908335805, alpha: 1)
         cv.register(BasketGroupCollectionViewCell.self, forCellWithReuseIdentifier: BasketGroupCollectionViewCell.cellIdentifier)
+        cv.register(BasketTotalCollectionViewCell.self, forCellWithReuseIdentifier: BasketTotalCollectionViewCell.cellIdentifier)
         cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         return cv
     }()
     
+    
+    
+    let finalAmountView:UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = #colorLiteral(red: 0.9505864978, green: 0.9303696752, blue: 0.9908335805, alpha: 1)
+        return view
+    }()
+    
+    
+    
+    let grandTotalView:UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 8
+        stackView.backgroundColor = .clear
+        return stackView
+    }()
+    
+    let grandTotalLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.text = "Grand Total"
+        lbl.textColor = .darkGray
+        return lbl
+    }()
+    
+    let rupeesLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.text = "Rs. 500/-"
+        lbl.textColor = .black
+        lbl.font = UIFont.boldSystemFont(ofSize: 16)
+        return lbl
+    }()
+    
+    let proceedbtn:UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitle("Proceed", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.backgroundColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        btn.layer.cornerRadius = 10
+        return btn
+    }()
     
     
     
@@ -57,6 +105,8 @@ class BasketGroupViewController: UIViewController {
         setUpConstrains()
         
         configureCompositionalLayout()
+        
+        setUpViewFinalView()
     }
     
     
@@ -111,6 +161,38 @@ class BasketGroupViewController: UIViewController {
         ])
     }
     
+    func setUpViewFinalView(){
+        view.addSubview(finalAmountView)
+        finalAmountView.addSubview(proceedbtn)
+//        finalAmountView.addSubview(grandTotalLbl)
+//        finalAmountView.addSubview(rupeesLbl)
+        
+        finalAmountView.addSubview(grandTotalView)
+        grandTotalView.addArrangedSubview(grandTotalLbl)
+        grandTotalView.addArrangedSubview(rupeesLbl)
+        
+        NSLayoutConstraint.activate([
+            
+            finalAmountView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            finalAmountView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            finalAmountView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 3),
+            finalAmountView.heightAnchor.constraint(equalToConstant: 100),
+            
+            
+            
+            proceedbtn.widthAnchor.constraint(equalToConstant: 160),
+            proceedbtn.heightAnchor.constraint(equalToConstant: 50),
+            proceedbtn.trailingAnchor.constraint(equalTo: finalAmountView.trailingAnchor, constant: -15),
+            proceedbtn.bottomAnchor.constraint(equalTo: finalAmountView.bottomAnchor, constant: -30),
+            
+            
+            grandTotalView.leadingAnchor.constraint(equalTo: finalAmountView.leadingAnchor, constant: 17),
+            grandTotalView.centerYAnchor.constraint(equalTo: proceedbtn.centerYAnchor),
+
+            
+        ])
+    }
+    
     @objc func navigateBack(){
         navigationController?.popViewController(animated: true)
     }
@@ -124,6 +206,8 @@ extension BasketGroupViewController {
             switch sectionIndex {
             case 0 :
                 return self.restaurantsListSection()
+            case 1:
+                return self.applyCouponSection()
             default:
                 return nil
             }
@@ -133,27 +217,38 @@ extension BasketGroupViewController {
         collectionView.setCollectionViewLayout(layout, animated: true)
     }
     
+    
+    
     func restaurantsListSection()->NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(130))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 2, trailing: 15)
         
-        
-//        section.boundarySupplementaryItems = [
-//            .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(30)), elementKind: "Header", alignment: .top),
-//            .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(30)), elementKind: "Footer", alignment: .bottom)
-//
-//        ]
-        
+                
         return section
     }
     
+    
+    func applyCouponSection()->NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(350))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 50, trailing: 15)
+        
+                
+        return section
+    }
     
 }
 

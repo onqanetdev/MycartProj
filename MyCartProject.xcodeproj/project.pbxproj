@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A91295D2E24CAAA00328664 /* BasketTotalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A91295C2E24CAAA00328664 /* BasketTotalCollectionViewCell.swift */; };
 		8AA41F552E1F876D002E127C /* ProductSegmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F542E1F876D002E127C /* ProductSegmentCollectionViewCell.swift */; };
 		8AA41F582E1FCD93002E127C /* PageControlFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F572E1FCD93002E127C /* PageControlFooterView.swift */; };
 		8AA41F5A2E1FD328002E127C /* ProductReviewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA41F592E1FD328002E127C /* ProductReviewsCollectionViewCell.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A91295C2E24CAAA00328664 /* BasketTotalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTotalCollectionViewCell.swift; sourceTree = "<group>"; };
 		8AA41F542E1F876D002E127C /* ProductSegmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSegmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		8AA41F572E1FCD93002E127C /* PageControlFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlFooterView.swift; sourceTree = "<group>"; };
 		8AA41F592E1FD328002E127C /* ProductReviewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				8AA622E22E210F7700693239 /* BasketGroupCollectionViewCell.swift */,
+				8A91295C2E24CAAA00328664 /* BasketTotalCollectionViewCell.swift */,
 			);
 			path = "Basket Group Cells";
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				8AA622DE2E20EBF000693239 /* BasketGroupViewController.swift in Sources */,
 				8AB10A3A2E17E5FC001ED82C /* RegisterViewController.swift in Sources */,
 				8AB10A0D2E178930001ED82C /* HomeViewController+Extension.swift in Sources */,
+				8A91295D2E24CAAA00328664 /* BasketTotalCollectionViewCell.swift in Sources */,
 				8AB10A202E178D9A001ED82C /* GroceryKitchenHeaderView.swift in Sources */,
 				8AB109FA2E17854E001ED82C /* ViewController.swift in Sources */,
 				8AA622E52E21122D00693239 /* RestaurantListModel.swift in Sources */,

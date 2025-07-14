@@ -43,8 +43,8 @@ class TrendingProductsViewController: UIViewController {
     let cartBtn:UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         btn.setBackgroundImage(UIImage(systemName: "cart"), for: .normal)
+        //btn.addTarget(self, action: #selector(movingToCart), for: .touchUpInside)
         btn.tintColor = .white
         return btn
     }()
@@ -52,7 +52,6 @@ class TrendingProductsViewController: UIViewController {
     let sortBtn:UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         btn.setBackgroundImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
         btn.tintColor = .white
         return btn
@@ -87,7 +86,6 @@ class TrendingProductsViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         
         let btn = UIButton()
-        btn.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         btn.setBackgroundImage(UIImage(systemName: "arrow.left"), for: .normal)
         btn.tintColor = .white
         btn.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
@@ -104,11 +102,13 @@ class TrendingProductsViewController: UIViewController {
         spacer.width = 20
 
         let cartButtonItem = UIBarButtonItem(customView: cartBtn)
+        cartBtn.addTarget(self, action: #selector(movingToCart), for: .touchUpInside)
         let sortButtonItem = UIBarButtonItem(customView: sortBtn)
         navigationItem.rightBarButtonItems = [cartButtonItem, spacer, sortButtonItem]
     }
     
     
+
     
     func setUpConstrains(){
         collectionView.setUp(to: view)
@@ -125,6 +125,9 @@ class TrendingProductsViewController: UIViewController {
         ])
     }
     
+    @objc func movingToCart(){
+        navigationController?.pushViewController(BasketGroupViewController(), animated: true)
+    }
    
 }
 
