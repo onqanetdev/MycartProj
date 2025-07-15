@@ -164,9 +164,7 @@ class BasketGroupViewController: UIViewController {
     func setUpViewFinalView(){
         view.addSubview(finalAmountView)
         finalAmountView.addSubview(proceedbtn)
-//        finalAmountView.addSubview(grandTotalLbl)
-//        finalAmountView.addSubview(rupeesLbl)
-        
+
         finalAmountView.addSubview(grandTotalView)
         grandTotalView.addArrangedSubview(grandTotalLbl)
         grandTotalView.addArrangedSubview(rupeesLbl)

@@ -11,16 +11,14 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
     
     static let cellIdentifier = "BasketTotalCollectionViewCell"
     
-    
-    
-    
-    
-    
     let applyCouponCard:UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.layer.cornerRadius = 18
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        view.clipsToBounds = true
         return view
     }()
     
@@ -45,6 +43,7 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setBackgroundImage(UIImage(systemName: "chevron.right.circle.fill"), for: .normal)
+        btn.addTarget(self, action: #selector(applyCouponFieldShow), for: .touchUpInside)
         btn.tintColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
         return btn
     }()
@@ -161,6 +160,46 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
     }()
     
     
+   //Expanded View Contains
+    let expandedView:UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 21
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        view.clipsToBounds = true
+        view.isHidden = true
+        return view
+    }()
+    
+    let couponTextField:UITextField = {
+        let txtField = UITextField()
+        txtField.translatesAutoresizingMaskIntoConstraints = false
+        txtField.placeholder = "Enter coupon code:"
+        txtField.layer.cornerRadius = 10
+        txtField.tintColor = .systemRed
+        //txtField.backgroundColor = .blue
+        txtField.layer.cornerRadius = 10
+        txtField.layer.borderWidth = 1
+        txtField.layer.borderColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        txtField.tintColor = .systemRed
+        txtField.textAlignment = .center // Horizontally center text and placeholder
+        return txtField
+    }()
+    
+    let applyBtn:UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
+        btn.layer.cornerRadius = 8
+        btn.setTitle("APPLY", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        return btn
+    }()
+    
+    
+    var expandedViewHeight:NSLayoutConstraint!
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -184,6 +223,16 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
         applyCouponCard.addSubview(proceedBtn)
         
         
+        //Expanded View
+        
+        contentView.addSubview(expandedView)
+        expandedView.addSubview(couponTextField)
+        expandedView.addSubview(applyBtn)
+        
+        
+        expandedViewHeight = expandedView.heightAnchor.constraint(equalToConstant: 0)
+        expandedViewHeight.isActive = true
+        
         NSLayoutConstraint.activate([
             applyCouponCard.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             applyCouponCard.trailingAnchor.constraint(equalTo: contentView
@@ -204,6 +253,23 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
             proceedBtn.centerYAnchor.constraint(equalTo: applyCouponCard.centerYAnchor),
             proceedBtn.widthAnchor.constraint(equalToConstant: 30),
             proceedBtn.heightAnchor.constraint(equalToConstant: 30),
+            
+           // expandedView.heightAnchor.constraint(equalToConstant: 100),
+            expandedView.topAnchor.constraint(equalTo: applyCouponCard.bottomAnchor, constant: -8),
+            expandedView.leadingAnchor.constraint(equalTo: applyCouponCard.leadingAnchor),
+            expandedView.trailingAnchor.constraint(equalTo: applyCouponCard.trailingAnchor),
+            
+            
+            couponTextField.leadingAnchor.constraint(equalTo: expandedView.leadingAnchor, constant: 10),
+            couponTextField.bottomAnchor.constraint(equalTo: expandedView.bottomAnchor, constant: -20),
+            couponTextField.heightAnchor.constraint(equalToConstant: 50),
+            couponTextField.trailingAnchor.constraint(equalTo: applyBtn.leadingAnchor, constant: -10),
+            
+            
+            applyBtn.bottomAnchor.constraint(equalTo: expandedView.bottomAnchor , constant: -20),
+            applyBtn.trailingAnchor.constraint(equalTo: expandedView.trailingAnchor, constant: -10),
+            applyBtn.widthAnchor.constraint(equalToConstant: 90),
+            applyBtn.heightAnchor.constraint(equalToConstant: 50),
             
             
         ])
@@ -233,7 +299,7 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             paymentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             paymentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            paymentView.topAnchor.constraint(equalTo: applyCouponCard.bottomAnchor, constant: 10),
+            paymentView.topAnchor.constraint(equalTo: expandedView.bottomAnchor, constant: 30),
             paymentView.heightAnchor.constraint(equalToConstant: 190),
             
             
@@ -254,4 +320,48 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
             amountStackView.trailingAnchor.constraint(equalTo: paymentView.trailingAnchor, constant: -18),
             amountStackView.topAnchor.constraint(equalTo: borderLine.bottomAnchor, constant: 10) ])
     }
+    
+    
+    
+    @objc func applyCouponFieldShow(){
+        //print("Yayyy!!!!")
+        
+        if expandedView.isHidden == true {
+            expandedView.isHidden = false
+            expandedViewHeight.constant = 100
+            
+            applyCouponCard.layer.cornerRadius = 18
+            applyCouponCard.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            
+            proceedBtn.setBackgroundImage(UIImage(systemName: "chevron.down.circle.fill"), for: .normal)
+            
+            UIView.animate(withDuration: 0.3) {
+                self.contentView.layoutIfNeeded()
+            }
+        } else {
+            expandedView.isHidden = true
+            expandedViewHeight.constant = 0
+            applyCouponCard.layer.cornerRadius = 18
+            applyCouponCard.layer.maskedCorners = [
+                    .layerMinXMinYCorner,
+                    .layerMaxXMinYCorner,
+                    .layerMinXMaxYCorner,
+                    .layerMaxXMaxYCorner
+                ]
+            applyCouponCard.clipsToBounds = true
+           // applyCouponCard.backgroundColor = .brown
+            proceedBtn.setBackgroundImage(UIImage(systemName: "chevron.right.circle.fill"), for: .normal)
+            UIView.animate(withDuration: 0.3) {
+                self.contentView.layoutIfNeeded()
+            }
+        }
+    
+    }
 }
+
+
+
+
+
+
+
