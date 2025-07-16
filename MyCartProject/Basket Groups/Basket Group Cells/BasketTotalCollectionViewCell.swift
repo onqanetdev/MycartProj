@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BasketTotalCollectionViewCell: UICollectionViewCell {
+class BasketTotalCollectionViewCell: UICollectionViewCell, UITextFieldDelegate {
     
     static let cellIdentifier = "BasketTotalCollectionViewCell"
     
@@ -16,8 +16,7 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.layer.cornerRadius = 18
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        //view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.clipsToBounds = true
         return view
     }()
@@ -177,13 +176,14 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
         txtField.translatesAutoresizingMaskIntoConstraints = false
         txtField.placeholder = "Enter coupon code:"
         txtField.layer.cornerRadius = 10
-        txtField.tintColor = .systemRed
+        txtField.tintColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
         //txtField.backgroundColor = .blue
         txtField.layer.cornerRadius = 10
         txtField.layer.borderWidth = 1
         txtField.layer.borderColor = #colorLiteral(red: 0.3269538283, green: 0.1948716342, blue: 0.5487924814, alpha: 1)
-        txtField.tintColor = .systemRed
         txtField.textAlignment = .center // Horizontally center text and placeholder
+        txtField.addTarget(self, action: #selector(didBeginEditing), for: .editingDidBegin)
+
         return txtField
     }()
     
@@ -204,8 +204,10 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        couponTextField.delegate = self
         setUpViewForApplyCoupon()
         setUpViewForTotalAmount()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -357,6 +359,19 @@ class BasketTotalCollectionViewCell: UICollectionViewCell {
         }
     
     }
+    
+    
+    
+    @objc func didBeginEditing() {
+        NotificationCenter.default.post(name: Notification.Name("ScrollToCouponField"), object: self)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+
 }
 
 

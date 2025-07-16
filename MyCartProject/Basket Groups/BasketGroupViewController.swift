@@ -90,6 +90,9 @@ class BasketGroupViewController: UIViewController {
     
     
     
+    var finalAmountViewBottomConstraint: NSLayoutConstraint!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -103,10 +106,21 @@ class BasketGroupViewController: UIViewController {
         configureUI()
         setUpNavigation()
         setUpConstrains()
-        
         configureCompositionalLayout()
-        
         setUpViewFinalView()
+        
+    
+        // 👇 Keyboard observers
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+            
+            // 👇 Tap gesture to dismiss keyboard
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            tapGesture.cancelsTouchesInView = false
+            view.addGestureRecognizer(tapGesture)
+
+            // 👇 Scroll to coupon field when editing begins
+            NotificationCenter.default.addObserver(self, selector: #selector(scrollToCouponField(_:)), name: Notification.Name("ScrollToCouponField"), object: nil)
     }
     
     
@@ -161,39 +175,92 @@ class BasketGroupViewController: UIViewController {
         ])
     }
     
-    func setUpViewFinalView(){
-        view.addSubview(finalAmountView)
-        finalAmountView.addSubview(proceedbtn)
-
-        finalAmountView.addSubview(grandTotalView)
-        grandTotalView.addArrangedSubview(grandTotalLbl)
-        grandTotalView.addArrangedSubview(rupeesLbl)
-        
-        NSLayoutConstraint.activate([
-            
-            finalAmountView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            finalAmountView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            finalAmountView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 3),
-            finalAmountView.heightAnchor.constraint(equalToConstant: 100),
-            
-            
-            
-            proceedbtn.widthAnchor.constraint(equalToConstant: 160),
-            proceedbtn.heightAnchor.constraint(equalToConstant: 50),
-            proceedbtn.trailingAnchor.constraint(equalTo: finalAmountView.trailingAnchor, constant: -15),
-            proceedbtn.bottomAnchor.constraint(equalTo: finalAmountView.bottomAnchor, constant: -30),
-            
-            
-            grandTotalView.leadingAnchor.constraint(equalTo: finalAmountView.leadingAnchor, constant: 17),
-            grandTotalView.centerYAnchor.constraint(equalTo: proceedbtn.centerYAnchor),
-
-            
-        ])
-    }
+    
+    
+    
     
     @objc func navigateBack(){
         navigationController?.popViewController(animated: true)
     }
+    
+
+    
+    func setUpViewFinalView(){
+        view.addSubview(finalAmountView)
+        finalAmountView.addSubview(proceedbtn)
+        finalAmountView.addSubview(grandTotalView)
+        grandTotalView.addArrangedSubview(grandTotalLbl)
+        grandTotalView.addArrangedSubview(rupeesLbl)
+        
+        // Create the bottom constraint properly - use view.bottomAnchor to stick to actual bottom
+        finalAmountViewBottomConstraint = finalAmountView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        finalAmountViewBottomConstraint.isActive = true
+
+        NSLayoutConstraint.activate([
+            finalAmountView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            finalAmountView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            finalAmountView.heightAnchor.constraint(equalToConstant: 100),
+            
+            proceedbtn.widthAnchor.constraint(equalToConstant: 160),
+            proceedbtn.heightAnchor.constraint(equalToConstant: 50),
+            proceedbtn.trailingAnchor.constraint(equalTo: finalAmountView.trailingAnchor, constant: -15),
+            proceedbtn.topAnchor.constraint(equalTo: finalAmountView.topAnchor, constant: 10),
+            
+            grandTotalView.leadingAnchor.constraint(equalTo: finalAmountView.leadingAnchor, constant: 17),
+            grandTotalView.centerYAnchor.constraint(equalTo: proceedbtn.centerYAnchor),
+        ])
+    }
+
+    // Alternative keyboard handling method
+    @objc func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        
+        // Get keyboard height and adjust for safe area
+        let keyboardHeight = keyboardFrame.height
+        let safeAreaBottom = view.safeAreaInsets.bottom
+        
+        // On devices with home indicator, we need to account for safe area
+        let adjustedKeyboardHeight = keyboardHeight - safeAreaBottom + 0
+        
+        // Move finalAmountView above the keyboard
+        finalAmountViewBottomConstraint.constant = -adjustedKeyboardHeight
+        
+        UIView.animate(withDuration: animationDuration) {
+            self.collectionView.contentInset.bottom = adjustedKeyboardHeight + self.finalAmountView.frame.height
+            self.collectionView.scrollIndicatorInsets.bottom = adjustedKeyboardHeight + self.finalAmountView.frame.height
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    
+
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        finalAmountViewBottomConstraint.constant = 0
+
+        UIView.animate(withDuration: 0.3) {
+            self.collectionView.contentInset = .zero
+            self.collectionView.scrollIndicatorInsets = .zero
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    
+    
+    @objc func scrollToCouponField(_ notification: Notification) {
+        guard let cell = notification.object as? UICollectionViewCell,
+              let indexPath = collectionView.indexPath(for: cell) else { return }
+
+        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+    }
+
+    
 }
 
 
